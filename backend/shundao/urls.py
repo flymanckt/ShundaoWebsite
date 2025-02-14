@@ -1,10 +1,12 @@
+from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import HomepageCarouselViewSet, HomeContentViewSet, BrandAdvantageViewSet
+from django.conf import settings
+from django.conf.urls.static import static
 
-router = DefaultRouter()
-router.register(r'homepage_carousel', HomepageCarouselViewSet)
-router.register(r'homecontent', HomeContentViewSet)
-router.register(r'brand_advantage', BrandAdvantageViewSet)
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('banners.urls')),
+]
 
-urlpatterns = router.urls
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

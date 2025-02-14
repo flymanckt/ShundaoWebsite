@@ -24,7 +24,7 @@
      导航栏
      ============================= */
   .navbar-outer {
-    background-color: rgba(76, 175, 80, 0.1);
+
   }
   .navbar {
     max-width: var(--container-width);
@@ -36,7 +36,7 @@
     padding: 0 20px;
   }
   .logo-image {
-    max-width: 100px;
+    max-width: 180px;
     height: auto;
     object-fit: contain;
   }
@@ -119,6 +119,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      max-width: 1200px;
+      margin: auto;
     }
     
     /* Brand Advantage 子主题的基本样式 */
@@ -163,9 +165,9 @@
     /* 子主题图片容器 */
     .subtopic-images {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       justify-content: center;
+      align-items: center;
+      min-height: 200px;
     }
     
     /* 子主题图片样式 */
@@ -178,7 +180,12 @@
     .subtopic-text {
       padding: 10px;
     }
-  
+
+    .brand-advantage-container, .subtopic-images {
+      padding: 0;
+      margin: 0 auto;
+    }
+
   /* =============================
      Footer
      ============================= */

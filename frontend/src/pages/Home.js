@@ -5,24 +5,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../App.css";
 
-function Home() {
+function Home({ language }) {
   const [carouselImages, setCarouselImages] = useState([]);
   const [homeContent, setHomeContent] = useState([]);
   const [brandAdv, setBrandAdv] = useState(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:8000";
+
   useEffect(() => {
-    // 获取 Banner 轮播图数据
-    axios.get('http://127.0.0.1:8000/api/homepage_carousel/')
-      .then(response => setCarouselImages(response.data))
+    axios.get(`${API_BASE_URL}/api/homepage_carousel/`)
+      .then(response => {
+        console.log("Carousel Data:", response.data);
+        setCarouselImages(response.data);
+      })
       .catch(error => console.error("Error fetching homepage carousel:", error));
 
-    // 获取 首页正文内容数据
-    axios.get('http://127.0.0.1:8000/api/homecontent/')
+    axios.get(`${API_BASE_URL}/api/homecontent/`)
       .then(response => setHomeContent(response.data))
       .catch(error => console.error("Error fetching home content:", error));
 
-    // 获取 Brand Advantage 数据（取第一条记录）
-    axios.get('http://127.0.0.1:8000/api/brand_advantage/')
+    axios.get(`${API_BASE_URL}/api/brand_advantage/`)
       .then(response => {
         if (response.data.length > 0) {
           setBrandAdv(response.data[0]);
@@ -33,7 +35,6 @@ function Home() {
       .catch(error => console.error("Error fetching brand advantage:", error));
   }, []);
 
-  // Banner 轮播配置
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -46,7 +47,6 @@ function Home() {
     arrows: false,
   };
 
-  // Brand Advantage 子主题轮播配置（仅当 layout 为 "carousel" 时使用）
   const sliderSettingsSubtopic = {
     dots: true,
     infinite: true,
@@ -56,6 +56,7 @@ function Home() {
     arrows: true,
     autoplay: true,
     autoplaySpeed: 3000,
+    adaptiveHeight: true, // 根据 slide 内容自适应高度
   };
 
   return (
@@ -67,7 +68,7 @@ function Home() {
             {carouselImages.length > 0 ? (
               carouselImages.map(item => (
                 <div key={item.id}>
-                  <img src={item.image} alt={item.title || "Banner"} className="banner-image" />
+                  <img src={item.image_url} alt={item.title || "Banner"} className="banner-image" crossOrigin="anonymous" />
                 </div>
               ))
             ) : (
@@ -87,16 +88,16 @@ function Home() {
         </div>
       </section>
 
-      {/* 正文内容 */}
+      {/* 首页正文内容 */}
       <div className="container">
         {homeContent.length > 0 ? (
           homeContent.map(item => (
             <section key={item.id} className="section">
-              {item.title && <h2>{item.title}</h2>}
-              {item.subtitle && <h3>{item.subtitle}</h3>}
-              <p>{item.content}</p>
+              <h2>{language === "en" ? item.title_en : item.title_vi}</h2>
+              {item.subtitle_en && <h3>{language === "en" ? item.subtitle_en : item.subtitle_vi}</h3>}
+              <p>{language === "en" ? item.content_en : item.content_vi}</p>
               {item.image && (
-                <img src={item.image} alt={item.title} style={{ width: "100%", borderRadius: "8px" }} />
+                <img src={`${API_BASE_URL}${item.image}`} alt={language === "en" ? item.title_en : item.title_vi} style={{ width: "100%", borderRadius: "8px" }} />
               )}
             </section>
           ))
@@ -107,22 +108,21 @@ function Home() {
           </section>
         )}
 
-        {/* Brand Advantage 栏目 */}
+        {/* 品牌优势部分 */}
         {brandAdv && (
           <section className="section brand-advantage">
-            {brandAdv.main_title && <h2>{brandAdv.main_title}</h2>}
-            <p>{brandAdv.main_content}</p>
+            <h2>{language === "en" ? brandAdv.main_title_en : brandAdv.main_title_vi}</h2>
+            <p>{language === "en" ? brandAdv.main_content_en : brandAdv.main_content_vi}</p>
             <div className="brand-advantage-container">
               {brandAdv.subtopics && brandAdv.subtopics.length > 0 ? (
                 brandAdv.subtopics.map(sub => {
-                  // 在此打印当前子主题的 images 数组，方便调试
-                  console.log("Carousel subtopic images:", sub.images);
+                  console.log("Subtopic images:", sub.images);
                   return (
                     <div key={sub.id} className={`brand-advantage-subtopic ${sub.text_position} ${sub.layout}`}>
                       {(sub.text_position === 'top' || sub.text_position === 'left') && (
                         <div className="subtopic-text">
-                          <h3>{sub.title}</h3>
-                          <p>{sub.content}</p>
+                          <h3>{language === "en" ? sub.title_en : sub.title_vi}</h3>
+                          <p>{language === "en" ? sub.content_en : sub.content_vi}</p>
                         </div>
                       )}
                       <div className="subtopic-images" style={{ gap: `${sub.image_spacing}px` }}>
@@ -130,14 +130,14 @@ function Home() {
                           <Slider {...sliderSettingsSubtopic}>
                             {sub.images && sub.images.length > 0 ? (
                               sub.images.map(img => (
-                                <div key={img.id} style={{ height: '200px' }}>
+                                <div key={img.id} style={{ minHeight: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                   <img
-                                    src={img.image}
-                                    alt={sub.title}
+                                    src={img.image_url}
+                                    alt={language === "en" ? sub.title_en : sub.title_vi}
                                     className="subtopic-image"
                                     style={{
                                       width: img.custom_width ? `${img.custom_width}px` : '100%',
-                                      height: img.custom_height ? `${img.custom_height}px` : '100%',
+                                      height: img.custom_height ? `${img.custom_height}px` : 'auto',
                                       objectFit: 'cover'
                                     }}
                                   />
@@ -152,8 +152,8 @@ function Home() {
                             sub.images.map(img => (
                               <img
                                 key={img.id}
-                                src={img.image}
-                                alt={sub.title}
+                                src={img.image_url}
+                                alt={language === "en" ? sub.title_en : sub.title_vi}
                                 className="subtopic-image"
                                 style={{
                                   width: img.custom_width ? `${img.custom_width}px` : '100%',
@@ -168,8 +168,8 @@ function Home() {
                       </div>
                       {(sub.text_position === 'bottom' || sub.text_position === 'right') && (
                         <div className="subtopic-text">
-                          <h3>{sub.title}</h3>
-                          <p>{sub.content}</p>
+                          <h3>{language === "en" ? sub.title_en : sub.title_vi}</h3>
+                          <p>{language === "en" ? sub.content_en : sub.content_vi}</p>
                         </div>
                       )}
                     </div>

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Product, News
+from ..banners.models import Product, News
 
 class ProductModelTest(TestCase):
     def test_product_creation(self):
