@@ -130,7 +130,7 @@ function Home({ language }) {
                           <Slider {...sliderSettingsSubtopic}>
                             {sub.images && sub.images.length > 0 ? (
                               sub.images.map(img => (
-                                <div key={img.id} style={{ minHeight: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <div key={img.id} style={{ minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                   <img
                                     src={img.image_url}
                                     alt={language === "en" ? sub.title_en : sub.title_vi}
