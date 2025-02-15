@@ -24,7 +24,7 @@
      导航栏
      ============================= */
   .navbar-outer {
-
+  
   }
   .navbar {
     max-width: var(--container-width);
@@ -105,88 +105,6 @@
   }
   
   /* =============================
-     Brand Advantage 栏目
-     ============================= */
-     .brand-advantage {
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .brand-advantage-container {
-      max-width: var(--container-width);
-      margin: auto;
-      padding: 0;
-    }
-    
-    /* Brand Advantage 子主题的基本样式 */
-    .brand-advantage-subtopic {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 10px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-    }
-    
-    /* 当文字在右或下时 */
-    .brand-advantage-subtopic.right .subtopic-images,
-    .brand-advantage-subtopic.bottom .subtopic-images {
-      order: 0;
-    }
-    .brand-advantage-subtopic.right .subtopic-text,
-    .brand-advantage-subtopic.bottom .subtopic-text {
-      order: 1;
-      flex: 1;
-    }
-    
-    /* 当文字在左或上时 */
-    .brand-advantage-subtopic.left .subtopic-images,
-    .brand-advantage-subtopic.top .subtopic-images {
-      order: 1;
-    }
-    .brand-advantage-subtopic.left .subtopic-text,
-    .brand-advantage-subtopic.top .subtopic-text {
-      order: 0;
-      flex: 1;
-    }
-    
-    /* 上下布局：垂直排列 */
-    .brand-advantage-subtopic.top,
-    .brand-advantage-subtopic.bottom {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    /* 子主题图片容器 */
-    .subtopic-images {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 300px;  /* 设置一个合理的最小高度 */
-      max-height: 300px;  /* 限制最大高度 */
-      overflow: hidden;
-    }
-    
-    /* 子主题图片样式 */
-    .subtopic-image {
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    
-    /* 子主题文字 */
-    .subtopic-text {
-      padding: 10px;
-    }
-
-    .brand-advantage-container, .subtopic-images {
-      padding: 0;
-      margin: 0 auto;
-    }
-
-  /* =============================
      Footer
      ============================= */
   .footer {
@@ -221,16 +139,4 @@
     .section {
       margin-bottom: 10px;
     }
-    .brand-advantage-container {
-      flex-direction: column;
-      text-align: center;
-    }
-    .brand-advantage-subtopic {
-      flex-direction: column;
-      text-align: center;
-    }
-    .subtopic-image {
-      width: 100% !important;
-    }
   }
-  
