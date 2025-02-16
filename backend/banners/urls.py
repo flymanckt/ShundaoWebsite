@@ -7,4 +7,6 @@ router.register(r'homepage_carousel', HomepageCarouselViewSet)
 router.register(r'homecontent', HomeContentViewSet)
 
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', include(router.urls)),
+]

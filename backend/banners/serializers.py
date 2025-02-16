@@ -4,7 +4,7 @@ from .models import HomepageCarousel, HomeContent, HomeContentSubtopic, Subtopic
 class HomepageCarouselSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomepageCarousel
-        fields = '__all__'
+        fields = ['id', 'title', 'image_url']
 
 class SubtopicImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()

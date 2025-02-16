@@ -23,6 +23,7 @@ EFFECT_CHOICES = [
 
 class HomepageCarousel(models.Model):
     title = models.CharField(max_length=200)
+    image_url = models.URLField(max_length=200)
     image = models.ImageField(upload_to='homepage_carousel/')
     order = models.PositiveIntegerField(default=0)
 

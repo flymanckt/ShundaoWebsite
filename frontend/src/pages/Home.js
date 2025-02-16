@@ -6,26 +6,30 @@ import "slick-carousel/slick/slick-theme.css";
 import "../App.css";
 
 function Home({ language }) {
-  const [carouselImages, setCarouselImages] = useState([]);
-  const [homeContent, setHomeContent] = useState([]);
-
+  const [homepagecarouselImages, setCarouselImages] = useState([]);
+  const [homeContent, setHomeContent] = useState([]);  
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:8000";
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [carouselResponse, homeContentResponse] = await Promise.all([
+        const [homepagecarouselResponse, homeContentResponse] = await Promise.all([
           axios.get(`${API_BASE_URL}/api/homepage_carousel/`),
           axios.get(`${API_BASE_URL}/api/homecontent/`)
         ]);
-
-        setCarouselImages(carouselResponse.data);
+  
+        console.log("Carousel Images:", homepagecarouselResponse.data);
+        homepagecarouselResponse.data.forEach(item => console.log("Image URL:", item.image_url));
+        setCarouselImages(homepagecarouselResponse.data);
+        setHomeContent(homeContentResponse.data);
+        setCarouselImages(homepagecarouselResponse.data);
         setHomeContent(homeContentResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
+  
     fetchData();
   }, [API_BASE_URL]);
 
@@ -47,23 +51,25 @@ function Home({ language }) {
       <section className="banner-section">
         <div className="banner-wrapper">
           <Slider {...sliderSettings}>
-            {carouselImages.length > 0 ? (
-              carouselImages.map(item => (
+            {homepagecarouselImages.length > 0 ? (
+              homepagecarouselImages.map(item => (
                 <div key={item.id}>
                   <img src={item.image_url} alt={item.title || "Banner"} className="banner-image" crossOrigin="anonymous" />
+                  {console.log("Image URL:", item.image_url)}
+                  {console.log("Item:", item)}
                 </div>
               ))
             ) : (
               <>
-                <div>
-                  <img src="https://via.placeholder.com/1200x500?text=Banner+1" alt="Banner 1" className="banner-image" />
-                </div>
-                <div>
-                  <img src="https://via.placeholder.com/1200x500?text=Banner+2" alt="Banner 2" className="banner-image" />
-                </div>
-                <div>
-                  <img src="https://via.placeholder.com/1200x500?text=Banner+3" alt="Banner 3" className="banner-image" />
-                </div>
+                  <div>
+                    <img src="https://picsum.photos/1200/500?random=1" alt="Banner 1" className="banner-image" />
+                  </div>
+                  <div>
+                    <img src="https://picsum.photos/1200/500?random=2" alt="Banner 2" className="banner-image" />
+                  </div>
+                  <div>
+                    <img src="https://picsum.photos/1200/500?random=3" alt="Banner 3" className="banner-image" />
+                  </div>
               </>
             )}
           </Slider>

@@ -90,6 +90,9 @@ CORS_ALLOW_HEADERS = [
 CORS_EXPOSE_HEADERS = ['Content-Disposition']
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 ALLOWED_HOSTS = ['*']  # 允许所有主机访问
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",  # Frontend address
+]
 
 # 数据库配置
 DATABASES = {
