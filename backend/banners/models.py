@@ -4,15 +4,15 @@ from django.db import models
 POSITION_CHOICES = [
     ('left', 'Left'),
     ('right', 'Right'),
+    ('center', 'Center'),
     ('top', 'Top'),
     ('bottom', 'Bottom'),
 ]
 
 LAYOUT_CHOICES = [
-    ('stacked', 'Stacked'),
-    ('carousel', 'Carousel'),
-    ('grid', 'Grid'),
-    ('masonry', 'Masonry'),
+    ('vertical', '垂直布局'),
+    ('horizontal', '水平布局'),
+    ('grid-2', '双列网格')
 ]
 
 EFFECT_CHOICES = [
@@ -55,9 +55,9 @@ class HomeContentSubtopic(models.Model):
     title_vi = models.CharField(max_length=200, blank=True)
     content_en = models.TextField(blank=True)
     content_vi = models.TextField(blank=True)
-    layout = models.CharField(max_length=50, choices=LAYOUT_CHOICES, default='stacked')
+    layout = models.CharField(max_length=50, choices=LAYOUT_CHOICES, default='stacked',verbose_name="布局方式")
     effect = models.CharField(max_length=50, choices=EFFECT_CHOICES, default='none')
-    text_position = models.CharField(max_length=10, choices=POSITION_CHOICES, default='right')
+    text_position = models.CharField(max_length=10, choices=POSITION_CHOICES, default='right',verbose_name="文字位置")
     image_spacing = models.IntegerField(default=10, help_text="图片间距，单位像素")
     order = models.PositiveIntegerField(default=0)
     

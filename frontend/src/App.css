@@ -89,6 +89,91 @@
     padding: 0 20px;
   }
   
+  .content-container {
+    white-space: pre-line; /* 合并连续空格，保留换行 */
+    /* 或 */
+    white-space: pre-wrap; /* 保留所有空格和换行 */
+    
+    /* 以下为可选增强样式 */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-family: inherit; /* 保持字体一致 */
+  }
+
+
+  .subtopic {
+    position: relative;
+    box-sizing: border-box;
+  }
+  
+  .subtopic-image {
+    width: 100%;  /* 设置图片宽度为100% */
+    height: auto;  /* 保持比例 */
+    object-fit: cover;  /* 图片填充，避免失真 */
+    object-position: center;  /* 确保图片居中显示 */
+  }
+  
+  .subtopic-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* 确保容器宽度为100% */
+    min-height: 300px;  /* 为容器设置一个最小高度 */
+    overflow: hidden;   /* 防止溢出 */
+  }
+
+  .subtopic .slick-slider {
+    height: 400px; /* 根据需求调整 */
+  }
+
+  .subtopic-images .slick-list {
+  overflow: hidden !important;
+  height: 400px !important;
+  /* 根据需求调整 */
+ }
+
+  .subtopic-images .slick-track {
+  display: flex !important;
+  align-items: center !important;
+  }
+
+  /* 覆盖slick默认隐藏逻辑 */
+  .slick-slide {
+    display: block !important;/* 强制显示所有slide */
+    float: none; /* 禁用浮动布局 */
+    opacity: 1;/* 初始透明 */
+    transition: opacity 0.5s;/* 添加渐变效果 */
+    height: auto !important; /* 禁用固定高度 */    
+    }
+  
+  /* 修复图片容器 */
+  .slick-slide > div {
+  height: 100% !important;
+  min-height: 200px; /* 匹配图片高度 */
+  }
+
+  /* 激活态slide显示 */
+  .slick-slide.slick-active {
+    opacity: 1 !important;
+    }
+
+    /* 修复图片显示层级 */
+  .slick-slide img {
+  display: block !important;
+  position: relative;
+  z-index: 1;
+  }
+
+  /* 禁用RTL模式异常布局 */
+  [dir='rtl'] .slick-slide {
+  float: none !important;
+  }
+
+   /* 强制track容器可见 */
+  .slick-track {
+  display: flex !important;
+  align-items: center !important;
+  }
   /* =============================
      Section
      ============================= */
@@ -104,6 +189,42 @@
     margin-top: 0;
   }
   
+  /* 文本保留换行 */
+.preserve-newlines {
+  white-space: pre-line;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+/* 布局系统 */
+.subtopic-block {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+  /* 布局类型 */
+.layout-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-horizontal {
+  display: flex;
+  gap: var(--spacing);
+}
+
+.layout-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing);
+}
+
+/* 文字定位 */
+.text-left { text-align: left; justify-content: flex-start; }
+.text-center { text-align: center; justify-content: center; }
+.text-right { text-align: right; justify-content: flex-end; }
+
   /* =============================
      Footer
      ============================= */
@@ -139,4 +260,35 @@
     .section {
       margin-bottom: 10px;
     }
+    .slick-slide {
+      opacity: 0.5 !important; /* 非激活项半透明 */
+    }
+    .slick-active {
+      opacity: 1 !important;
+      transform: scale(1.05);
+    }  
+    .layout-horizontal {
+      flex-direction: column;
+    }
+    .layout-grid-2 {
+      grid-template-columns: 1fr;
+    }   
+    .subtopic-block {
+      padding: 0.5rem;
+    }
+  }
+  
+  /* 图片容器 */
+  .image-grid {
+    display: grid;
+    gap: var(--spacing);
+  }
+  
+  .grid-image-wrapper {
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .carousel-image-container {
+    padding: 0 10px; 
   }
